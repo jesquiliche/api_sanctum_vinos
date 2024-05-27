@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('denominaciones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion')->nulable();
+            $table->string('descripcion')->nullable();
             $table->timestamps();
         });
     }

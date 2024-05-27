@@ -11,6 +11,9 @@ use MoonShine\Resources\ModelResource;
 use MoonShine\Decorations\Block;
 use MoonShine\Fields\ID;
 use MoonShine\Fields\Field;
+use MoonShine\Fields\Text;
+use MoonShine\Fields\Textarea;
+
 use MoonShine\Components\MoonShineComponent;
 
 /**
@@ -20,7 +23,7 @@ class DenominacionResource extends ModelResource
 {
     protected string $model = Denominacion::class;
 
-    protected string $title = 'Denominacions';
+    protected string $title = 'Denominaciones';
 
     /**
      * @return list<MoonShineComponent|Field>
@@ -30,6 +33,14 @@ class DenominacionResource extends ModelResource
         return [
             Block::make([
                 ID::make()->sortable(),
+                Text::make(
+                    'Nombre',
+                    'nombre',
+                ),
+                Textarea::make(
+                    'Descripción',
+                    'descripcion',
+                )
             ]),
         ];
     }
@@ -44,4 +55,8 @@ class DenominacionResource extends ModelResource
     {
         return [];
     }
+
+
+
+
 }
