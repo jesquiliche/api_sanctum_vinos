@@ -53,7 +53,7 @@ class DenominacionResource extends ModelResource
      */
     public function rules(Model $item): array
     {
-        return [];
+        return ['nombre'=>'string|required','descripcion'=>'string|required'];
     }
 
 

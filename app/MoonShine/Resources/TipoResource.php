@@ -10,7 +10,9 @@ use App\Models\Tipo;
 use MoonShine\Resources\ModelResource;
 use MoonShine\Decorations\Block;
 use MoonShine\Fields\ID;
-use MoonShine\Fields\Field;
+use MoonShine\Fields\Text;
+use MoonShine\Fields\Textarea;
+
 use MoonShine\Components\MoonShineComponent;
 
 /**
@@ -30,9 +32,18 @@ class TipoResource extends ModelResource
         return [
             Block::make([
                 ID::make()->sortable(),
+                Text::make(
+                    'Nombre',
+                    'nombre',
+                ),
+                Textarea::make(
+                    'Descripción',
+                    'descripcion',
+                )
             ]),
         ];
     }
+
 
     /**
      * @param Tipo $item
@@ -42,6 +53,6 @@ class TipoResource extends ModelResource
      */
     public function rules(Model $item): array
     {
-        return [];
+        return ['nombre'=>'required','descripcion'=>'required'];
     }
 }
