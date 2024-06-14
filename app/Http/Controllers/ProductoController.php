@@ -11,19 +11,24 @@ use Illuminate\Support\Facades\Validator;
 class ProductoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de los recursos.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $productos = Producto::all();
+        // Obtiene el número de elementos por página desde la query string, por defecto 15
+        $perPage = $request->query('per_page', 15);
+        // Pagina los productos
+        $productos = Producto::paginate($perPage);
+        // Retorna los productos en formato JSON
         return response()->json($productos);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un nuevo recurso en el almacenamiento.
      */
     public function store(Request $request): JsonResponse
     {
+        // Valida la solicitud
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
             'bodega' => 'nullable|string|max:255',
@@ -34,20 +39,23 @@ class ProductoController extends Controller
             'ano' => 'nullable|integer',
             'sabor' => 'nullable|string|max:255',
             'tipo_id' => 'required|exists:tipos,id',
-            'imagen'=>'nullable:string',
+            'imagen' => 'nullable|string',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'denominacion_id' => 'required|exists:denominaciones,id',
         ]);
 
+        // Si la validación falla, retorna los errores
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        // Procesar y guardar la imagen
+        // Procesa y guarda la imagen si existe
         if ($request->hasFile('file')) {
             $filePath = $request->file('file')->store('imagenes', 'public');
+            $fileUrl = url('storage/' . $filePath);
         }
 
+        // Crea un nuevo producto con los datos validados
         $producto = Producto::create([
             'nombre' => $request->nombre,
             'bodega' => $request->bodega,
@@ -58,26 +66,36 @@ class ProductoController extends Controller
             'ano' => $request->ano,
             'sabor' => $request->sabor,
             'tipo_id' => $request->tipo_id,
-            'imagen' => $filePath ?? null,
+            'imagen' => $fileUrl ?? null,
             'denominacion_id' => $request->denominacion_id,
         ]);
 
-        return response()->json($producto, 201); // 201 Created
+        // Retorna el producto creado con el código de estado 201 (Created)
+        return response()->json($producto, 201);
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el recurso especificado.
      */
-    public function show(Producto $producto): JsonResponse
+    public function show($id): JsonResponse
     {
+        // Busca el producto por su ID
+        $producto = Producto::find($id);
+        // Si no se encuentra, retorna un mensaje de error
+        if (!$producto) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
+        }
+
+        // Retorna el producto encontrado en formato JSON
         return response()->json($producto);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso especificado en el almacenamiento.
      */
     public function update(Request $request, Producto $producto): JsonResponse
     {
+        // Valida la solicitud
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
             'bodega' => 'nullable|string|max:255',
@@ -92,39 +110,59 @@ class ProductoController extends Controller
             'denominacion_id' => 'required|exists:denominaciones,id',
         ]);
 
+        // Si la validación falla, retorna los errores
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        // Procesar y guardar la nueva imagen si se ha cargado
+        // Procesa y guarda la nueva imagen si se ha cargado
         if ($request->hasFile('file')) {
-            // Eliminar la imagen antigua si existe
+            // Elimina la imagen antigua si existe
             if ($producto->file) {
                 Storage::disk('public')->delete($producto->file);
             }
 
-            // Guardar la nueva imagen
+            // Guarda la nueva imagen
             $filePath = $request->file('file')->store('imagenes', 'public');
             $producto->imagen = $filePath;
         }
 
+        // Actualiza el producto con los datos validados
         $producto->update($validator->validated());
 
+        // Retorna el producto actualizado en formato JSON
         return response()->json($producto);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso especificado del almacenamiento.
      */
-    public function destroy(Producto $producto): JsonResponse
+    public function destroy($id): JsonResponse
     {
-        // Eliminar la imagen asociada si existe
-        if ($producto->file) {
-            Storage::disk('public')->delete($producto->file);
+        // Busca el producto por su ID
+        $producto = Producto::find($id);
+        // Si no se encuentra, retorna un mensaje de error
+        if (!$producto) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
         }
 
+        // Elimina la imagen asociada si existe
+        if ($producto->imagen) {
+            $imagePath = 'imagenes/' . basename($producto->imagen);
+            if (Storage::disk('public')->exists($imagePath)) {
+                $deleted = Storage::disk('public')->delete($imagePath);
+                if (!$deleted) {
+                    return response()->json(['message' => 'Error al eliminar la imagen'], 500);
+                }
+            } else {
+                return response()->json(['message' => 'Imagen no encontrada'], 404);
+            }
+        }
+
+        // Elimina el producto
         $producto->delete();
 
-        return response()->json(null, 204); // 204 No Content
+        // Retorna una respuesta vacía con el código de estado 204 (No Content)
+        return response()->json(null, 204);
     }
 }
