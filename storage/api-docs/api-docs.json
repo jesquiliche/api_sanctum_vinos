@@ -1,11 +1,11 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API de mi aplicación",
+        "title": "API Catalogo de vinos",
         "description": "Descripción de mi API",
         "termsOfService": "https://example.com/terms/",
         "contact": {
-            "email": "contacto@example.com"
+            "email": "jesquuliche@hotmail.com"
         },
         "license": {
             "name": "MIT",
@@ -233,6 +233,1133 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/denominacion": {
+            "get": {
+                "tags": [
+                    "Denominacion"
+                ],
+                "summary": "Get list of denominaciones",
+                "description": "Returns list of denominaciones",
+                "operationId": "getDenominacionList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Denominacion 1"
+                                            },
+                                            "descripcion": {
+                                                "type": "string",
+                                                "example": "Descripción de la denominacion 1"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Denominacion"
+                ],
+                "summary": "Store a new denominacion",
+                "description": "Stores a new denominacion and returns it",
+                "operationId": "storeDenominacion",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Nueva Denominacion"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Descripción de la nueva denominacion"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Nueva Denominacion"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Descripción de la nueva denominacion"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/denominacion/{id}": {
+            "get": {
+                "tags": [
+                    "Denominacion"
+                ],
+                "summary": "Get denominacion by ID",
+                "description": "Returns a single denominacion",
+                "operationId": "getDenominacionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of denominacion to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Denominacion 1"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Descripción de la denominacion 1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Denominacion not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Denominacion"
+                ],
+                "summary": "Update an existing denominacion",
+                "description": "Updates an existing denominacion and returns it",
+                "operationId": "updateDenominacion",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of denominacion to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Denominacion Actualizada"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Descripción de la denominacion actualizada"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Denominacion Actualizada"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Descripción de la denominacion actualizada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Denominacion not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Denominacion"
+                ],
+                "summary": "Delete a denominacion",
+                "description": "Deletes a single denominacion",
+                "operationId": "deleteDenominacion",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of denominacion to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Denominacion not found"
+                    }
+                }
+            }
+        },
+        "/api/producto": {
+            "get": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Obtener lista de productos",
+                "description": "Devuelve una lista paginada de productos",
+                "operationId": "getProductoList",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Número de elementos por página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 15
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "Producto 1"
+                                                    },
+                                                    "bodega": {
+                                                        "type": "string",
+                                                        "example": "Bodega A"
+                                                    },
+                                                    "descripcion": {
+                                                        "type": "string",
+                                                        "example": "Descripción del producto 1"
+                                                    },
+                                                    "maridaje": {
+                                                        "type": "string",
+                                                        "example": "Maridaje del producto 1"
+                                                    },
+                                                    "precio": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 20.5
+                                                    },
+                                                    "graduacion": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 12.5
+                                                    },
+                                                    "ano": {
+                                                        "type": "integer",
+                                                        "example": 2023
+                                                    },
+                                                    "sabor": {
+                                                        "type": "string",
+                                                        "example": "Sabor del producto 1"
+                                                    },
+                                                    "tipo_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "denominacion_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "imagen": {
+                                                        "type": "string",
+                                                        "example": "http://example.com/storage/imagen.jpg"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string"
+                                                },
+                                                "last": {
+                                                    "type": "string"
+                                                },
+                                                "prev": {
+                                                    "type": "string"
+                                                },
+                                                "next": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer"
+                                                },
+                                                "from": {
+                                                    "type": "integer"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer"
+                                                },
+                                                "path": {
+                                                    "type": "string"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer"
+                                                },
+                                                "to": {
+                                                    "type": "integer"
+                                                },
+                                                "total": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Crear un nuevo producto",
+                "description": "Crea un nuevo producto y almacena sus datos junto con una imagen",
+                "operationId": "storeProducto",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "description": "Nombre del producto",
+                                        "type": "string",
+                                        "example": "Producto 1"
+                                    },
+                                    "bodega": {
+                                        "description": "Bodega del producto",
+                                        "type": "string",
+                                        "example": "Bodega A"
+                                    },
+                                    "descripcion": {
+                                        "description": "Descripción del producto",
+                                        "type": "string",
+                                        "example": "Descripción del producto 1"
+                                    },
+                                    "maridaje": {
+                                        "description": "Maridaje del producto",
+                                        "type": "string",
+                                        "example": "Maridaje del producto 1"
+                                    },
+                                    "precio": {
+                                        "description": "Precio del producto",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 20.5
+                                    },
+                                    "graduacion": {
+                                        "description": "Graduación del producto",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 12.5
+                                    },
+                                    "ano": {
+                                        "description": "Año del producto",
+                                        "type": "integer",
+                                        "example": 2023
+                                    },
+                                    "sabor": {
+                                        "description": "Sabor del producto",
+                                        "type": "string",
+                                        "example": "Sabor del producto 1"
+                                    },
+                                    "tipo_id": {
+                                        "description": "ID del tipo de producto",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "denominacion_id": {
+                                        "description": "ID de la denominación del producto",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "file": {
+                                        "description": "Imagen del producto",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Producto creado con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Producto 1"
+                                        },
+                                        "bodega": {
+                                            "type": "string",
+                                            "example": "Bodega A"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Descripción del producto 1"
+                                        },
+                                        "maridaje": {
+                                            "type": "string",
+                                            "example": "Maridaje del producto 1"
+                                        },
+                                        "precio": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 20.5
+                                        },
+                                        "graduacion": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 12.5
+                                        },
+                                        "ano": {
+                                            "type": "integer",
+                                            "example": 2023
+                                        },
+                                        "sabor": {
+                                            "type": "string",
+                                            "example": "Sabor del producto 1"
+                                        },
+                                        "tipo_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "denominacion_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "imagen": {
+                                            "type": "string",
+                                            "example": "http://example.com/storage/imagen.jpg"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/producto/{id}": {
+            "get": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Obtener un producto por ID",
+                "description": "Devuelve los datos de un producto específico",
+                "operationId": "getProductoById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Producto 1"
+                                        },
+                                        "bodega": {
+                                            "type": "string",
+                                            "example": "Bodega A"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Descripción del producto 1"
+                                        },
+                                        "maridaje": {
+                                            "type": "string",
+                                            "example": "Maridaje del producto 1"
+                                        },
+                                        "precio": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 20.5
+                                        },
+                                        "graduacion": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 12.5
+                                        },
+                                        "ano": {
+                                            "type": "integer",
+                                            "example": 2023
+                                        },
+                                        "sabor": {
+                                            "type": "string",
+                                            "example": "Sabor del producto 1"
+                                        },
+                                        "tipo_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "denominacion_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "imagen": {
+                                            "type": "string",
+                                            "example": "http://example.com/storage/imagen.jpg"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Producto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Actualizar un producto existente",
+                "description": "Actualiza los datos de un producto existente",
+                "operationId": "updateProducto",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Producto Actualizado"
+                                    },
+                                    "bodega": {
+                                        "type": "string",
+                                        "example": "Bodega Actualizada"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Descripción del producto actualizado"
+                                    },
+                                    "maridaje": {
+                                        "type": "string",
+                                        "example": "Maridaje del producto actualizado"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 25.75
+                                    },
+                                    "graduacion": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 13
+                                    },
+                                    "ano": {
+                                        "type": "integer",
+                                        "example": 2022
+                                    },
+                                    "sabor": {
+                                        "type": "string",
+                                        "example": "Sabor del producto actualizado"
+                                    },
+                                    "tipo_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "denominacion_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "file": {
+                                        "description": "Imagen del producto",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Producto Actualizado"
+                                        },
+                                        "bodega": {
+                                            "type": "string",
+                                            "example": "Bodega Actualizada"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Descripción del producto actualizado"
+                                        },
+                                        "maridaje": {
+                                            "type": "string",
+                                            "example": "Maridaje del producto actualizado"
+                                        },
+                                        "precio": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 25.75
+                                        },
+                                        "graduacion": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 13
+                                        },
+                                        "ano": {
+                                            "type": "integer",
+                                            "example": 2022
+                                        },
+                                        "sabor": {
+                                            "type": "string",
+                                            "example": "Sabor del producto actualizado"
+                                        },
+                                        "tipo_id": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "denominacion_id": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "imagen": {
+                                            "type": "string",
+                                            "example": "http://example.com/storage/imagen.jpg"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Eliminar un producto",
+                "description": "Elimina un producto existente por su ID",
+                "operationId": "deleteProducto",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "description": "Producto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipo": {
+            "get": {
+                "tags": [
+                    "Tipos"
+                ],
+                "summary": "Get list of tipos",
+                "description": "Returns list of tipos",
+                "operationId": "getTiposList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Tipo 1"
+                                            },
+                                            "descripcion": {
+                                                "type": "string",
+                                                "example": "Descripción del tipo 1"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tipos"
+                ],
+                "summary": "Store a new tipo",
+                "description": "Stores a new tipo and returns it",
+                "operationId": "storeTipo",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Nuevo Tipo"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Descripción del nuevo tipo"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Nuevo Tipo"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Descripción del nuevo tipo"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipo/{id}": {
+            "get": {
+                "tags": [
+                    "Tipos"
+                ],
+                "summary": "Get tipo by ID",
+                "description": "Returns a single tipo",
+                "operationId": "getTipoById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of tipo to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Tipo 1"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Descripción del tipo 1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tipo not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tipos"
+                ],
+                "summary": "Update an existing tipo",
+                "description": "Updates an existing tipo and returns it",
+                "operationId": "updateTipo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of tipo to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Tipo Actualizado"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Descripción del tipo actualizado"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Tipo Actualizado"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Descripción del tipo actualizado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tipo not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tipos"
+                ],
+                "summary": "Delete a tipo",
+                "description": "Deletes a single tipo",
+                "operationId": "deleteTipo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of tipo to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Tipo not found"
+                    }
+                }
             }
         }
     },

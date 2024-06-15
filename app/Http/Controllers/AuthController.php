@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Validator;
 
 /**
  * @OA\Info(
- *     title="API de mi aplicación",
+ *     title="API Catalogo de vinos",
  *     version="1.0.0",
  *     description="Descripción de mi API",
  *     termsOfService="https://example.com/terms/",
  *     @OA\Contact(
- *         email="contacto@example.com"
+ *         email="jesquuliche@hotmail.com"
  *     ),
  *     @OA\License(
  *         name="MIT",
